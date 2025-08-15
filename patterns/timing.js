@@ -1,36 +1,51 @@
-/**
- * @param {string[]} playlist
- * @param {string} song
- * @returns {boolean} whether `song` is in `playlist`
- * @returns `false` if `playlist` is empty
- */
-export function isSongInPlaylist(playlist, song) {
-  for (const songInPlaylist of playlist) {
-    if (songInPlaylist === song) {
-      return true;
+export function getLongestString(arr) {
+  let best = ""
+  for (let i = 0; i < arr.length; i++) {
+    const v = arr[i]
+    if (typeof v === "string" && v.length > best.length) {
+      best = v
     }
   }
-  return false;
+  return best
 }
 
-/**
- * @param {number[]} numbers
- * @returns {boolean} whether all `numbers` are even
- * @returns `undefined` if `numbers` is empty
- */
-export function isAllEven(numbers) {
-  // TODO
+export function isAllEven(nums) {
+  // tests expect undefined for an empty array
+  if (!Array.isArray(nums) || nums.length === 0) return undefined
+  for (let i = 0; i < nums.length; i++) {
+    const n = nums[i]
+    if (typeof n != "number" || n % 2 !== 0) return false
+  }
+  return true
 }
 
-/**
- * You're in charge of a group camping trip. You've packed supplies in a backpack,
- * and each item in the backpack has a category, such as "food", "equipment", or "clothes".
- * Each item in the "food" category is enough to feed one person.
- *
- * @param {{category: string}[]}} backpack
- * @param {number} people
- * @returns {boolean} whether there is enough food in the backpack to feed everyone
- */
+export function countLetter(str, letter) {
+  if (typeof str != "string" || typeof letter != "string" || letter.length === 0) {
+    return 0
+  }
+  const target = letter[0].toLowerCase()
+  let count = 0
+  for (let i = 0; i < str.length; i++) {
+    const ch = str[i]
+    if (ch.toLowerCase() === target) count++
+  }
+  return count
+}
+
+export function isSongInPlaylist(playlist, song) {
+  if (!Array.isArray(playlist) || typeof song !== "string") return false
+  for (let i = 0; i < playlist.length; i++) {
+    if (playlist[i] === song) return true
+  }
+  return false
+}
+
 export function haveEnoughFood(backpack, people) {
-  // TODO
+  if (typeof people !== "number" || people <= 0) return true
+  if (!Array.isArray(backpack) || backpack.length === 0) return false
+  let foodCount = 0
+  for (let i = 0; i < backpack.length; i++) {
+    if (backpack[i] && backpack[i].category === "food") foodCount++
+  }
+  return foodCount >= people
 }
